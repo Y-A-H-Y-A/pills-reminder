@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
           indicatorColor: Colors.white,
           primaryColor: Colors.black,
         ),
-        debugShowCheckedModeBanner: true,
+        debugShowCheckedModeBanner: false,
         home: const RemindersMainPage(),
       ),
     );

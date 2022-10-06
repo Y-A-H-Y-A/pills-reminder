@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 
 import '../reminders widgets/addReminderDialogWidget.dart';
@@ -19,11 +20,57 @@ class _RemindersMainPageState extends State<RemindersMainPage>
   //?Custom controller for Tabs
   late TabController controller;
 
-  //?Initialising the controller
+  //?Initialising the controller and the notifications dialog
   @override
   void initState() {
+    //tabs controller
     controller = TabController(length: 2, vsync: this);
     super.initState();
+
+    //allowe the notifications
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+      //if not allowed (show the allowing dialog)
+      if (!isAllowed) {
+        showDialog(
+            context: context,
+            builder: ((context) => AlertDialog(
+                  title: const Text(
+                    'Allowe Notifications',
+                    style: TextStyle(color: Color(0xFF715DC0)),
+                  ),
+                  content: const Text(
+                      'Our App would like to send you notifications'),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text(
+                        "Don't Allowe",
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    TextButton(
+                      //if pressed it will take the user to the notifications seetings of the app
+                      onPressed: (() => AwesomeNotifications()
+                          .requestPermissionToSendNotifications()
+                          .then((_) => Navigator.pop(context))),
+                      child: const Text(
+                        "Allowe",
+                        style: TextStyle(
+                          color: Color(0xFF715DC0),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                )));
+      }
+    });
   }
 
   //?To clean the controller
