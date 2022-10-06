@@ -5,7 +5,7 @@ import 'package:pills_reminder/providers/remindersProvider.dart';
 import 'package:pills_reminder/reminders%20pages/editRemindersPage.dart';
 import 'package:provider/provider.dart';
 
-import '../apis/notificationsAPI.dart';
+import '../APIs/notificationsAPI.dart';
 import '../reminders pages/remindersMainPage.dart';
 import '../styles/customStyles.dart';
 import '../utils.dart';
